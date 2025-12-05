@@ -12,13 +12,40 @@ class AnalyzeQueriesCommand extends Command
     public function handle()
     {
         $queries = app('query-collector')->getQueries();
+        if (empty($queries)) {
+            $this->info("No queries captured.");
+            return 0;
+        }
+
+        $this->info("✅ Captured " . count($queries) . " queries. Analyzing...");
+
         $analysis = app('query-analyzer')->analyze($queries);
-        $ai = app('ai-recommender')->recommend($analysis);
+        $aiRecommender = app('smart-query-optimizer');
 
         $this->info("Query Analysis:");
         $this->line(json_encode($analysis, JSON_PRETTY_PRINT));
 
         $this->info("\nAI Recommendations:");
-        $this->line(json_encode($ai, JSON_PRETTY_PRINT));
+        // Instantiate AIRecommender
+
+        foreach ($queries as $idx => $q) {
+            $this->line("\n🔹 Query #" . ($idx + 1));
+            $this->line($q['sql']);
+
+            $result = $aiRecommender->analyze($q['sql'], [
+                'execution_ms' => $q['time'],
+            ]);
+
+            $this->info("Mode: " . ucfirst($result['mode']));
+            $this->info("Suggestions:");
+
+            foreach ($result['suggestions'] as $suggestion) {
+                if (trim($suggestion)) {
+                    $this->line(" - " . $suggestion);
+                }
+            }
+        }
+
+        $this->info("\n✨ Analysis complete.");
     }
 }

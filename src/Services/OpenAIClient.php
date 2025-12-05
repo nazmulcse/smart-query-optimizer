@@ -11,11 +11,11 @@ class OpenAIClient
 
     public function __construct()
     {
-        $this->apiKey = config('query-optimizer.openai_api_key');
-        $this->model = config('query-optimizer.openai_model');
+        $this->apiKey = config('smart-optimize.openai_api_key');
+        $this->model = config('smart-optimize.openai_model');
     }
 
-    public function ask(string $prompt): string
+    public function chat(string $prompt): string
     {
         if (!$this->apiKey) {
             return "OpenAI API key missing. Add OPENAI_API_KEY in .env";

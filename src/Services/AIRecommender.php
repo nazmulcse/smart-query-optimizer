@@ -2,7 +2,7 @@
 
 namespace NazmulHasan\SmartQueryOptimizer\Services;
 
-use OpenAI\Client as OpenAIClient;
+use NazmulHasan\SmartQueryOptimizer\Services\OpenAIClient;
 
 class AIRecommender
 {
@@ -78,7 +78,7 @@ class AIRecommender
      * 2. AI POWERED ANALYSIS (OpenAI or any other LLM)
      * -------------------------------------------------------------
      */
-    protected function aiAnalysis(string $sql, array $stats): array
+    protected function aiAnalysis(string $sql, array $stats): array|string
     {
         if (! $this->client) {
             return [
@@ -89,20 +89,9 @@ class AIRecommender
 
         $prompt = $this->buildPrompt($sql, $stats);
 
-        $response = $this->client->chat()->create([
-            'model' => 'gpt-4o-mini',
-            'messages' => [
-                ['role' => 'system', 'content' => 'You are an expert SQL performance tuner.'],
-                ['role' => 'user', 'content' => $prompt],
-            ],
-        ]);
+        $response = $this->client->chat($prompt);
 
-        $content = trim($response->choices[0]->message->content ?? '');
-
-        return [
-            'mode' => 'ai',
-            'suggestions' => explode("\n", $content),
-        ];
+        return $response;
     }
 
     /**

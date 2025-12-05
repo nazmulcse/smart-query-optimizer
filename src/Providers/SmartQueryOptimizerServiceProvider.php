@@ -4,7 +4,13 @@ namespace NazmulHasan\SmartQueryOptimizer\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Events\QueryExecuted;
-use SmartQueryOptimizer\Listeners\QueryExecutedListener;
+use NazmulHasan\SmartQueryOptimizer\Services\OpenAIClient;
+use NazmulHasan\SmartQueryOptimizer\Services\AIRecommender;
+use NazmulHasan\SmartQueryOptimizer\Services\QueryAnalyzer;
+use NazmulHasan\SmartQueryOptimizer\Services\QueryCollector;
+use NazmulHasan\SmartQueryOptimizer\Listeners\QueryExecutedListener;
+use NazmulHasan\SmartQueryOptimizer\Console\Commands\AnalyzeAllQueries;
+use NazmulHasan\SmartQueryOptimizer\Console\Commands\AnalyzeQueriesCommand;
 
 class SmartQueryOptimizerServiceProvider extends ServiceProvider
 {
@@ -12,10 +18,14 @@ class SmartQueryOptimizerServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/query-optimizer.php', 'smart-optimize');
 
+        $this->app->singleton('query-collector', fn() => new QueryCollector());
+        $this->app->singleton('query-analyzer', fn() => new QueryAnalyzer());
+        // $this->app->singleton('ai-recommender', fn() => new AIRecommender());
+        
         $this->app->singleton('smart-query-optimizer', function () {
-            return new \SmartQueryOptimizer\Services\AIRecommender(
+            return new AIRecommender(
                 config('smart-optimize.ai_enabled'),
-                app()->make(\OpenAI\Client::class)
+                app()->make(OpenAIClient::class)
             );
         });
     }
@@ -28,7 +38,8 @@ class SmartQueryOptimizerServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \NazmulHasan\SmartQueryOptimizer\Console\Commands\AnalyzeQueriesCommand::class,
+                AnalyzeQueriesCommand::class,
+                AnalyzeAllQueries::class,
             ]);
         }
 
