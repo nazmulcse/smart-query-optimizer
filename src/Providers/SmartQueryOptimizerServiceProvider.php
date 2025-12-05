@@ -10,7 +10,7 @@ class SmartQueryOptimizerServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../../config/query-optimizer.php', 'smart-optimize');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/query-optimizer.php', 'smart-optimize');
 
         $this->app->singleton('smart-query-optimizer', function () {
             return new \SmartQueryOptimizer\Services\AIRecommender(
@@ -23,8 +23,8 @@ class SmartQueryOptimizerServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../../config/query-optimizer.php' => config_path('smart-optimize.php'),
-        ]);
+            __DIR__ . '/../../config/query-optimizer.php' => config_path('smart-optimize.php'),
+        ], 'smart-optimize');
 
         \Event::listen(QueryExecuted::class, QueryExecutedListener::class);
     }
