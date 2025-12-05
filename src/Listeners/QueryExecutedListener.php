@@ -3,9 +3,9 @@
 namespace NazmulHasan\SmartQueryOptimizer\Listeners;
 
 use Illuminate\Database\Events\QueryExecuted;
-use SmartQueryOptimizer\Services\AIRecommender;
 use SmartQueryOptimizer\Helpers\OptimizerLog;
-use OpenAI\Client as OpenAIClient;
+use NazmulHasan\SmartQueryOptimizer\Services\OpenAIClient;
+use NazmulHasan\SmartQueryOptimizer\Services\AIRecommender;
 
 class QueryExecutedListener
 {
