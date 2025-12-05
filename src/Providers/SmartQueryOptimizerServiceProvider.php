@@ -23,7 +23,7 @@ class SmartQueryOptimizerServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/smart-optimize.php' => config_path('smart-optimize.php'),
+            __DIR__.'/../../config/query-optimizer.php' => config_path('smart-optimize.php'),
         ]);
 
         \Event::listen(QueryExecuted::class, QueryExecutedListener::class);
