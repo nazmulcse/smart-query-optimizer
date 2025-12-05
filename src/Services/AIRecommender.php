@@ -91,7 +91,10 @@ class AIRecommender
 
         $response = $this->client->chat($prompt);
 
-        return $response;
+        return [
+            'mode' => 'ai',
+            'suggestions' => explode("\n", $response),
+        ];
     }
 
     /**
