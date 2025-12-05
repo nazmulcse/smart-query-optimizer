@@ -26,6 +26,12 @@ class SmartQueryOptimizerServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/query-optimizer.php' => config_path('smart-optimize.php'),
         ], 'smart-optimize');
 
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \NazmulHasan\SmartQueryOptimizer\Console\Commands\AnalyzeQueryCommand::class,
+            ]);
+        }
+
         \Event::listen(QueryExecuted::class, QueryExecutedListener::class);
     }
 }
