@@ -11,7 +11,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "NazmulHasan\\SmartQueryOptimizer\\SmartQueryOptimizerServiceProvider"
+                "NazmulHasan\\SmartQueryOptimizer\\Providers\\SmartQueryOptimizerServiceProvider"
             ],
             "aliases": {
                 "QueryOptimizer": "NazmulHasan\\SmartQueryOptimizer\\Facades\\QueryOptimizer"
