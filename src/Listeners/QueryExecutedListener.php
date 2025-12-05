@@ -3,7 +3,7 @@
 namespace NazmulHasan\SmartQueryOptimizer\Listeners;
 
 use Illuminate\Database\Events\QueryExecuted;
-use SmartQueryOptimizer\Helpers\OptimizerLog;
+use NazmulHasan\SmartQueryOptimizer\Helpers\OptimizerLog;
 use NazmulHasan\SmartQueryOptimizer\Services\OpenAIClient;
 use NazmulHasan\SmartQueryOptimizer\Services\AIRecommender;
 
