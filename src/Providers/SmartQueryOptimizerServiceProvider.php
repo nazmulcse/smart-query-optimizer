@@ -10,7 +10,7 @@ class SmartQueryOptimizerServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/smart-optimize.php', 'smart-optimize');
+        $this->mergeConfigFrom(__DIR__.'/../config/query-optimizer.php', 'smart-optimize');
 
         $this->app->singleton('smart-query-optimizer', function () {
             return new \SmartQueryOptimizer\Services\AIRecommender(
