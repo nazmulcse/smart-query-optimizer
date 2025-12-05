@@ -28,7 +28,7 @@ class SmartQueryOptimizerServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \NazmulHasan\SmartQueryOptimizer\Console\Commands\AnalyzeQueryCommand::class,
+                \NazmulHasan\SmartQueryOptimizer\Console\Commands\AnalyzeQueriesCommand::class,
             ]);
         }
 
