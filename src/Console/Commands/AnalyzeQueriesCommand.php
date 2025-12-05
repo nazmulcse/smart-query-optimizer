@@ -1,6 +1,6 @@
 <?php
 
-namespace NazmulHasan\SmartQueryOptimizer\Commands;
+namespace NazmulHasan\SmartQueryOptimizer\Console\Commands;
 
 use Illuminate\Console\Command;
 

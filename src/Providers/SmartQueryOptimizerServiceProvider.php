@@ -1,6 +1,6 @@
 <?php
 
-namespace NazmulHasan\SmartQueryOptimizer\Services;
+namespace NazmulHasan\SmartQueryOptimizer\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Events\QueryExecuted;
