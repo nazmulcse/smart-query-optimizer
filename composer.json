@@ -1,0 +1,31 @@
+{
+    "name": "nazmulcse/smart-query-optimizer",
+    "description": "AI-powered Query Optimizer for Laravel (detects N+1, missing indexes, slow queries, query optimization suggestions).",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "NazmulHasan\\SmartQueryOptimizer\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NazmulHasan\\SmartQueryOptimizer\\SmartQueryOptimizerServiceProvider"
+            ],
+            "aliases": {
+                "QueryOptimizer": "NazmulHasan\\SmartQueryOptimizer\\Facades\\QueryOptimizer"
+            }
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.0|^11.0"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../laravel-smart-query-optimizer"
+        }
+    ]
+}
